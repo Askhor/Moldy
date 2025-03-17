@@ -3,8 +3,8 @@ from pathlib import Path
 
 from moldy.logging import log, Color
 
-mold_include_re = re.compile("<!--\\s*Mold\\s*:\\s*([a-zA-Z0-9.\\\\/ _]+)\\s*-->")
-
+mold_include_re = re.compile("<!--\\s*Mold\\s*:\\s*([a-zA-Z0-9.\\\\/ _]+)\\s*-*-->")
+mold_comment_re = re.compile("//.*\n")
 
 def process_section(section: str):
     values = section.split("$$")
@@ -27,6 +27,7 @@ def process_section(section: str):
 
 def process_moldings(moldings: Path):
     string = moldings.read_text()
+    string = mold_comment_re.sub("\n", string)
     sections = string.split("$$$$")
     sections = [s.strip() for s in sections]
     sections = [s for s in sections if s != ""]
