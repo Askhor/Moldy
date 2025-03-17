@@ -65,6 +65,7 @@ def apply_molding(template: list, molding: map, destination: str):
         except KeyError:
             log("Could not fulfil template because key ", Color(1), segment[0], Color(None),
                 " has no value associated with it for name ", Color(1), molding["name"], Color(None))
+            return
 
     destination = destination.replace("$name", molding["name"])
     destination = destination.replace("!name", molding["name"])
