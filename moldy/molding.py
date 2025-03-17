@@ -81,7 +81,7 @@ def apply_molding(template: list, molding: map, destination: str):
 
 
 def add_defaults_to_molding(molding, default_molding):
-    for key, default_value in default_molding:
+    for key, default_value in default_molding.values():
         if key not in molding:
             log("Placing default value for ", Color(5), key, Color(None), " as it is missing for ", Color(5),
                 molding["name"],

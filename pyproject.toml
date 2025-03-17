@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "Moldy"
-version = "2025.3.6" # version
+version = "2025.3.7" # version
 authors = [
   { name="Günthner" },
 ]
