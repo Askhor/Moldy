@@ -77,5 +77,19 @@ def apply_molding(template: list, molding: map, destination: str):
 
 def mold(file: Path, moldings: Path, destination: str):
     template = parse_moldable(file)
-    for molding in process_moldings(moldings):
+    parsed_moldings = { molding["name"]: molding for molding in process_moldings(moldings)}
+
+    if "default" in parsed_moldings:
+        default_molding = {}
+    else:
+        default_molding = parsed_moldings["default"]
+        del parsed_moldings["default"]
+
+    for name, molding in parsed_moldings:
+        for key, default_value in default_molding:
+            if key not in molding:
+                log("Placing default value for ", Color(5), key, Color(None), " as it is missing for ", Color(5), name, Color(None))
+                molding[key] = default_value
+
+    for _, molding in parsed_moldings:
         apply_molding(template, molding, destination)
